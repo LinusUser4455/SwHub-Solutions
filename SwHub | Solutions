@@ -1,0 +1,557 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+	Name = "SwHub | Solutions ",
+	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+	LoadingTitle = "SwHub FpsGames",
+	LoadingSubtitle = "Premium Script",
+	Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+ 
+	DisableRayfieldPrompts = false,
+	DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+ 
+	ConfigurationSaving = {
+	   Enabled = true,
+	   FolderName = nil, -- Create a custom folder for your hub/game
+	   FileName = "Big Hub"
+	},
+ 
+	Discord = {
+	   Enabled = true, -- Prompt the user to join your Discord server if their executor supports it
+	   Invite = "discord.gg/NCGEAhHnTB", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+	   RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+	},
+ 
+	KeySystem = true, -- Set this to true to use our key system
+	KeySettings = {
+	   Title = "Sw Solutions",
+	   Subtitle = "Premium",
+	   Note = "Life Time Key No Nosso Discord discord.gg/NCGEAhHnTB", -- Use this to tell the user how to get a key
+	   FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+	   SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+	   GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+	   Key = {"a53c23a32c07068acc151ee550a8bde57bf6e1"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+	}
+ })
+
+ local MainTab = Window:CreateTab("Main", 134183693939946) -- Title, Image
+
+ local Section = MainTab:CreateSection("Aimbot")
+
+ local Button = MainTab:CreateButton({
+	Name = "🎯 CamLock",
+	Callback = function()
+		loadstring(game:HttpGet("https://github.com/LinusUser4455/Scripts/blob/main/SS"))()
+	end,
+ })
+
+ local Toggle = MainTab:CreateToggle({
+	Name = "🎯 Silent Aim",
+	CurrentValue = false,
+	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Pixeluted/adoniscries/main/Source.lua",true))() --> DO NOT DELETE
+         
+        --> Silent Aim | Global Table <--
+        getgenv().Silent = {
+            Settings = {
+                Toggled = true,
+                AimPart = "HumanoidRootPart", --> HumanoidRootPart, UpperTorso, LowerTorso, Head <-- Main Parts
+                HitChance = 100, 
+         
+                Prediction = {
+                    Enabled = true,
+                    Horizontal = 0.13745, --> X, Z
+                    Vertical = 0.13745, --> Y
+                },
+         
+                Circle = {
+                    Visible = true,
+                    Color = Color3.fromRGB(255, 255, 255),
+                    Transparency = 1,
+                    Thickness = 1.5,
+                    NumSides = 1000,
+                    Radius = 100, --> Change Circle Size Here
+                    Filled = false,
+                },
+            },
+        }
+         
+        -- Basic Silent-Aim [ DAHOOD GAMES ]
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/TheRealXORA/Roblox/Scripts/Basic%20Silent-Aim", true))()
+	end,
+ })
+
+ local Toggle = MainTab:CreateToggle({
+	Name = "🎯 Hitbox Espander",
+	CurrentValue = false,
+	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		getgenv().Camlock_Settings = {
+			Prediction = 0.159,
+			AimPart = "HumanoidRootPart",
+			Key = "t",
+			AutoPrediction = false,
+			Notification = true,
+			Button = true, --Only for people who play on mobile
+			AntiGroundShots = false,
+			UnderGroundResolver = false,
+		
+			-- DO NOT TOUCH THIS OR IT WILL NOT WORK --
+			Credits = "space_0999",
+			DiscordServer = "discord.gg/SKhamGzTdn"
+		} 
+		
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/elxocasXD/Trip-Hub/main/Scripts/Cam%20Lock.lua'))()
+	end,
+ })
+
+ local Button = MainTab:CreateButton({
+	Name = "🎯 Q Tool",
+	Callback = function()
+		getgenv().keytoclick = "Q"
+tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = keytoclick
+tool.Activated:connect(
+    function()
+        local vim = game:service("VirtualInputManager")
+        vim:SendKeyEvent(true, keytoclick, false, game)
+    end
+)
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+game.StarterGui:SetCore(
+    "SendNotification",
+    {
+        Title = "worddotexe",
+        Text = "worddotexe"
+    }
+)
+
+local player = game.Players.LocalPlayer
+
+local function connectCharacterAdded()
+    player.CharacterAdded:Connect(onCharacterAdded)
+end
+
+connectCharacterAdded()
+
+player.CharacterRemoving:Connect(
+    function()
+        tool.Parent = game.Players.LocalPlayer.Backpack
+    end
+)
+	end,
+ })
+
+ local Button = MainTab:CreateButton({
+	Name = "🎯 TriggerBot Key.T",
+	Callback = function()
+		local HoldClick = true
+local Hotkey = 't' -- Leave blank for always on
+local HotkeyToggle = true -- True if you want it to toggle on and off with a click
+
+local Players = game:GetService('Players')
+local RunService = game:GetService('RunService')
+
+local LocalPlayer = Players.LocalPlayer
+local Mouse = LocalPlayer:GetMouse()
+
+local Toggle = (Hotkey ~= '')
+local CurrentlyPressed = false
+
+Mouse.KeyDown:Connect(function(key)
+    if HotkeyToggle == true and key == Hotkey then
+        Toggle = not Toggle
+    elseif 
+        key == Hotkey then
+        Toggle = true
+    end
+end)
+
+Mouse.KeyUp:Connect(function(key)
+    if HotkeyToggle ~= true and key == Hotkey then
+        Toggle = false
+    end
+end)
+
+RunService.RenderStepped:Connect(function()
+    if Toggle then
+        if Mouse.Target then
+            if Mouse.Target.Parent:FindFirstChild('Humanoid') then
+                if HoldClick then
+                    if not CurrentlyPressed then
+                        CurrentlyPressed = true
+                        mouse1press()
+                    end
+                else
+                    mouse1click()
+                end
+            else
+                if HoldClick then
+                    CurrentlyPressed = false
+                    mouse1release()
+                end
+            end
+        end
+    end
+end)
+	end,
+ })
+
+ local VisualTab = Window:CreateTab("Visual", 89487701971193) -- Title, Image
+
+ local Section = VisualTab:CreateSection("Visual")
+
+ local Toggle = VisualTab:CreateToggle({
+	Name = "🥷 Esp Box",
+	CurrentValue = false,
+	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/LinusUser4455/Sw-Hub/refs/heads/main/Esp"))()
+	end,
+ })
+
+ local Button = VisualTab:CreateButton({
+	Name = "🥷 Sky Box",
+	Callback = function()
+		-- Get the Lighting service
+local Lighting = game:GetService("Lighting")
+
+-- Create a new Sky object (you can choose another sky or even create a custom one)
+local newSky = Instance.new("Sky")
+
+-- Modify the sky properties (optional)
+newSky.SkyboxBk = "rbxassetid://1095794193489057229" -- Back of the sky
+newSky.SkyboxDn = "rbxassetid://1095794193489057229" -- Bottom of the sky
+newSky.SkyboxFt = "rbxassetid://1095794193489057229" -- Front of the sky
+newSky.SkyboxLf = "rbxassetid://1095794193489057229" -- Left side of the sky
+newSky.SkyboxRt = "rbxassetid://1095794193489057229" -- Right side of the sky
+newSky.SkyboxUp = "rbxassetid://1095794193489057229" -- Top of the sky
+
+-- Set the new sky in Lighting
+Lighting.Sky = newSky
+	end,
+ })
+
+ local Toggle = VisualTab:CreateToggle({
+	Name = "🥷 Fake Macro",
+	CurrentValue = false,
+	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		loadstring(game:HttpGetAsync("https://pastebin.com/raw/XiqsUXHj", true))()
+	end,
+ })
+
+ local VisualTab = Window:CreateTab("Misc", 75027159797813) -- Title, Image
+
+ local Section = MiscTab:CreateSection("Misc")
+
+ local Button = MiscTab:CreateButton({
+	Name = "🔗 Anti Lock Key.Z",
+	Callback = function()
+		local Toggled = true
+local KeyCode = Enum.KeyCode.Z
+local hip = 2.80
+local val = -35
+
+local function adjustVelocity()
+    local player = game.Players.LocalPlayer
+    local rootPart = player.Character.HumanoidRootPart
+    local oldVelocity = rootPart.Velocity
+    rootPart.Velocity = Vector3.new(oldVelocity.X, val, oldVelocity.Z)
+    player.Character.Humanoid.HipHeight = hip
+end
+
+local function onInputBegan(input)
+    if input.KeyCode == KeyCode and not game:GetService('UserInputService'):GetFocusedTextBox() then
+        Toggled = not Toggled
+        if Toggled then
+            while Toggled do
+                adjustVelocity()
+                task.wait()
+            end
+        else
+            game.Players.LocalPlayer.Character.Humanoid.HipHeight = hip
+        end
+    end
+end
+
+game:GetService('UserInputService').InputBegan:Connect(onInputBegan)
+	end,
+ })
+
+ local Button = MiscTab:CreateButton({
+	Name = "🔗 Aim Viewr",
+	Callback = function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Nosssa/NossLock/main/VinGUI"))()
+	end,
+ })
+
+ local Button = MiscTab:CreateButton({
+	Name = "🔗 Anti Aim Viwer",
+	Callback = function()
+		local China = setmetatable({}, {
+			__index = function(Company, Price)
+				return game:GetService(Price)
+			end})
+			
+		 local Players = China.Players
+		 local ReplicatedStorage = China.ReplicatedStorage
+		 
+		 --//Variables
+		 local LocalPlayer = Players.LocalPlayer
+		 local Mouse =  LocalPlayer:GetMouse()
+		 
+		 local MainEvent = ReplicatedStorage:FindFirstChild("MainEvent") or nil
+		 local Tool = nil
+		 
+		 Bypass = function(Entity)
+			Entity.ChildAdded:Connect(function(Child)
+				if Child:IsA("Tool") then
+				  Tool = Child.Activated:Connect(function()
+						if MainEvent then
+						   MainEvent:FireServer("UpdateMousePos", Mouse.Hit.Position)
+						end
+					end)
+				end
+			end)
+		 end
+		 
+		 
+		 
+		 local Alive = function(Player)
+			return Player and Player.Character and Player.Character:FindFirstChild("Humanoid") and Player.Character:FindFirstChild("Head") or false
+		 end
+		 
+		 LocalPlayer.CharacterAdded:Connect(function(Character)
+			Bypass(Character)
+		 end)
+		 
+		 if Alive(LocalPlayer) then
+			LocalPlayer.Character.Humanoid:UnequipTools()
+			Bypass(LocalPlayer.Character)
+		 end
+		 
+		 local Hook
+		 Hook = hookmetamethod(game, "__namecall", function(self, ...)
+			local Args = {...}
+			local Method = getnamecallmethod()
+		 
+			if not checkcaller() and Method == "FireServer" and self.Name == "MainEvent" and Args[1] == "UpdateMousePos" then
+		 
+			   Args[2] = "Scarcin made this" and Mouse.Hit.Position
+				
+				return self.FireServer(self, unpack(Args))
+			end
+			
+			return Hook(self, ...)
+		 end)
+	end,
+ })
+
+ local Button = MiscTab:CreateButton({
+	Name = "🔗 Bypass",
+	Callback = function()
+		Bypass = true
+
+    local GameMT = getrawmetatable(game)
+    -- Backup variables
+    local OldIndexFunc = GameMT.__index;
+    local OldNamecallFunc = GameMT.__namecall
+    setreadonly(GameMT, false)
+    if (Bypass == true) then
+        -- This will be so laggy
+        GameMT.__namecall = newcclosure(function(self, ...) 
+            local NamecallArgs = {...}
+    
+            local DETECTION_STRINGS = 
+            {
+                'CHECKER_1';
+                'CHECKER';
+                'OneMoreTime';
+                'checkingSPEED';
+                'PERMAIDBAN';
+                'BANREMOTE';
+                'FORCEFIELD';
+                'TeleportDetect';
+            };
+    
+            if (table.find(DETECTION_STRINGS, NamecallArgs[1]) and getnamecallmethod() == 'FireServer') then 
+                return;
+            end;
+            local suc, err = pcall(getfenv, 2)
+            if not (err) then 
+                if getfenv(2).crash then 
+                    hookfunction(getfenv(2).crash, function() 
+                        
+                    end)
+                end
+            end
+            return OldNamecallFunc(self, ...)
+        end)
+    end
+	end,
+ })
+
+ local Button = MiscTab:CreateButton({
+	Name = "🔗 Ping Spoofer",
+	Callback = function()
+		getgenv().PingSpoofer = {
+			SpoofPing = true,
+			StartOfPingSpoofer = 31,
+			EndOfPingSpoofer = 69
+		}
+		
+		local Memory
+		
+		for __, v in pairs(game.CoreGui.RobloxGui.PerformanceStats:GetChildren()) do
+			if v.Name == 'PS_Button' and v.StatsMiniTextPanelClass.TitleLabel.Text == 'Ping' then 
+				Memory = v.StatsMiniTextPanelClass.ValueLabel
+			end
+		end
+		
+		Memory:GetPropertyChangedSignal('Text'):Connect(function()
+			if getgenv().PingSpoofer.SpoofPing then
+				local Random = math.random(getgenv().PingSpoofer.StartOfPingSpoofer, getgenv().PingSpoofer.EndOfPingSpoofer)
+				Random = Random * 1.23
+				Memory.Text = Random .. ' ms'
+			end
+		end)
+	end,
+ })
+
+ local Button = MiscTab:CreateButton({
+	Name = " Memory Spoofer",
+	Callback = function()
+		local Settings = {
+			range1 = 500,
+			range2 = 800,
+			
+		}
+		
+		for __, v in pairs(game.CoreGui.RobloxGui.PerformanceStats:GetChildren()) do
+			if v.Name == "PS_Button" and v.StatsMiniTextPanelClass.TitleLabel.Text == "Mem" then
+				Memory = v.StatsMiniTextPanelClass.ValueLabel
+			end
+		end
+		
+		Memory:GetPropertyChangedSignal("Text"):Connect(function()
+			local Random = math.random(Settings.range1,Settings.range2)
+			Random = Random * 1.23 
+			Memory.Text = "".. Random .." MB"
+		end)
+	end,
+ })
+
+ local Button = MiscTab:CreateButton({
+	Name = "🔗 Fps Boost",
+	Callback = function()
+		-- enjoy
+local function sendNotification(title, text)
+    game.StarterGui:SetCore("SendNotification", {
+        Title = title,
+        Text = text,
+    })
+end
+
+sendNotification("Script Injected", ".gg/closetcheating")
+
+-- adjust these if u want - current settings recommended
+getgenv().optimizeGraphics = true
+getgenv().boostFPS = true
+
+local vim = game:GetService("VirtualInputManager")
+local setfpscap = setfpscap or function() end -- Ensure setfpscap function is defined
+
+local function disableDevConsole()
+    local devConsoleUI = game:GetService("CoreGui"):FindFirstChild("DevConsoleUI", true)
+    if devConsoleUI then
+        local mainView = devConsoleUI:FindFirstChild("MainView")
+        if mainView then
+            local screen = mainView.Parent and mainView.Parent.Parent and mainView.Parent.Parent.Parent
+            if screen then
+                screen.Enabled = false
+            end
+        end
+    end
+end
+
+local function enableDevConsole()
+    local devConsoleMaster = game:GetService("CoreGui"):FindFirstChild("DevConsoleMaster", true)
+    if devConsoleMaster then
+        devConsoleMaster.Enabled = true
+    end
+end
+
+local function pressF9()
+    vim:SendKeyEvent(true, "F9", 0, game)
+    wait()
+    vim:SendKeyEvent(false, "F9", 0, game)
+end
+
+local function checkDevConsole()
+    while true do
+        task.wait()
+        if not boostFPS then
+            continue
+        end
+        if not game:GetService("CoreGui"):FindFirstChild("DevConsoleUI", true):FindFirstChild("MainView") then
+            pressF9()
+        end
+    end
+end
+
+game.Loaded:Wait()
+
+if optimizeGraphics then
+    -- Adjust graphics settings
+    local t = game.Workspace.Terrain
+    t.WaterWaveSize = 0
+    t.WaterWaveSpeed = 0
+    t.WaterReflectance = 0
+    t.WaterTransparency = 0
+    game.Lighting.GlobalShadows = false
+    game.Lighting.FogEnd = 9e9
+    game.Lighting.Brightness = 0
+    settings().Rendering.QualityLevel = "Level01"
+    
+    -- Modify parts and effects
+    for _, v in ipairs(game:GetDescendants()) do
+        if v:IsA("BasePart") then
+            v.Material = Enum.Material.Plastic
+            v.Reflectance = 0
+        elseif v:IsA("Decal") or v:IsA("Texture") then
+            v.Transparency = 1
+        elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+            v.Lifetime = NumberRange.new(0)
+        elseif v:IsA("Explosion") then
+            v.BlastPressure = 1
+            v.BlastRadius = 1
+        elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") then
+            v.Enabled = false
+        elseif v:IsA("MeshPart") then
+            v.Material = Enum.Material.Plastic
+            v.Reflectance = 0
+            v.TextureID = 10385902758728957
+        end
+    end
+
+    for _, e in ipairs(game.Lighting:GetChildren()) do
+        if e:IsA("PostEffect") then
+            e.Enabled = false
+        end
+    end
+end
+
+game.DescendantAdded:Connect(function(descendant)
+    if descendant.Name == "MainView" and descendant.Parent.Name == "DevConsoleUI" and boostFPS then
+        disableDevConsole()
+    end
+end)
+
+pressF9()
+spawn(checkDevConsole)
+	end,
+ })
