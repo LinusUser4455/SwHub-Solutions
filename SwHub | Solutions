@@ -1,154 +1,273 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local MainTab = Window:CreateTab("Main", 100078979523432) -- Title, Image
 
-local Window = Rayfield:CreateWindow({
-	Name = "SwHub | Solutions ",
-	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
-	LoadingTitle = "SwHub FpsGames",
-	LoadingSubtitle = "Premium Script",
-	Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
- 
-	DisableRayfieldPrompts = false,
-	DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
- 
-	ConfigurationSaving = {
-	   Enabled = true,
-	   FolderName = nil, -- Create a custom folder for your hub/game
-	   FileName = "Big Hub"
-	},
- 
-	Discord = {
-	   Enabled = true, -- Prompt the user to join your Discord server if their executor supports it
-	   Invite = "discord.gg/NCGEAhHnTB", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
-	   RememberJoins = true -- Set this to false to make them join the discord every time they load it up
-	},
- 
-	KeySystem = true, -- Set this to true to use our key system
-	KeySettings = {
-	   Title = "Sw Solutions",
-	   Subtitle = "Premium",
-	   Note = "Life Time Key No Nosso Discord discord.gg/NCGEAhHnTB", -- Use this to tell the user how to get a key
-	   FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-	   SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-	   GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-	   Key = {"a53c23a32c07068acc151ee550a8bde57bf6e1"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
-	}
- })
+local Section = MainTab:CreateSection("Aimbot")
 
- local MainTab = Window:CreateTab("Main", 134183693939946) -- Title, Image
+local Button = MainTab:CreateButton({
+    Name = "🌋 CamLock Key.C",
+    Callback = function()
+        getgenv().OldAimPart = "UpperTorso"
+getgenv().AimPart = "UpperTorso" -- For R15 Games: {UpperTorso, LowerTorso, HumanoidRootPart, Head} | For R6 Games: {Head, Torso, HumanoidRootPart}  
+    getgenv().AimlockKey = "c"
+    getgenv().AimRadius = 30 -- How far away from someones character you want to lock on at
+    getgenv().ThirdPerson = true 
+    getgenv().FirstPerson = true
+    getgenv().TeamCheck = false -- Check if Target is on your Team (True means it wont lock onto your teamates, false is vice versa) (Set it to false if there are no teams)
+    getgenv().PredictMovement = true -- Predicts if they are moving in fast velocity (like jumping) so the aimbot will go a bit faster to match their speed 
+    getgenv().PredictionVelocity = 4.5
+    getgenv().CheckIfJumped = false
+    getgenv().Smoothness = false
+    getgenv().SmoothnessAmount = 0.015
 
- local Section = MainTab:CreateSection("Aimbot")
+    local Players, Uis, RService, SGui = game:GetService"Players", game:GetService"UserInputService", game:GetService"RunService", game:GetService"StarterGui";
+    local Client, Mouse, Camera, CF, RNew, Vec3, Vec2 = Players.LocalPlayer, Players.LocalPlayer:GetMouse(), workspace.CurrentCamera, CFrame.new, Ray.new, Vector3.new, Vector2.new;
+    local Aimlock, MousePressed, CanNotify = true, false, false;
+    local AimlockTarget;
+    local OldPre;
+    
 
- local Button = MainTab:CreateButton({
-	Name = "🎯 CamLock",
-	Callback = function()
-		loadstring(game:HttpGet("https://github.com/LinusUser4455/Scripts/blob/main/SS"))()
-	end,
- })
-
- local Toggle = MainTab:CreateToggle({
-	Name = "🎯 Silent Aim",
-	CurrentValue = false,
-	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-	Callback = function(Value)
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Pixeluted/adoniscries/main/Source.lua",true))() --> DO NOT DELETE
-         
-        --> Silent Aim | Global Table <--
-        getgenv().Silent = {
-            Settings = {
-                Toggled = true,
-                AimPart = "HumanoidRootPart", --> HumanoidRootPart, UpperTorso, LowerTorso, Head <-- Main Parts
-                HitChance = 100, 
-         
-                Prediction = {
-                    Enabled = true,
-                    Horizontal = 0.13745, --> X, Z
-                    Vertical = 0.13745, --> Y
-                },
-         
-                Circle = {
-                    Visible = true,
-                    Color = Color3.fromRGB(255, 255, 255),
-                    Transparency = 1,
-                    Thickness = 1.5,
-                    NumSides = 1000,
-                    Radius = 100, --> Change Circle Size Here
-                    Filled = false,
-                },
-            },
-        }
-         
-        -- Basic Silent-Aim [ DAHOOD GAMES ]
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/TheRealXORA/Roblox/Scripts/Basic%20Silent-Aim", true))()
-	end,
- })
-
- local Toggle = MainTab:CreateToggle({
-	Name = "🎯 Hitbox Espander",
-	CurrentValue = false,
-	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-	Callback = function(Value)
-		getgenv().Camlock_Settings = {
-			Prediction = 0.159,
-			AimPart = "HumanoidRootPart",
-			Key = "t",
-			AutoPrediction = false,
-			Notification = true,
-			Button = true, --Only for people who play on mobile
-			AntiGroundShots = false,
-			UnderGroundResolver = false,
-		
-			-- DO NOT TOUCH THIS OR IT WILL NOT WORK --
-			Credits = "space_0999",
-			DiscordServer = "discord.gg/SKhamGzTdn"
-		} 
-		
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/elxocasXD/Trip-Hub/main/Scripts/Cam%20Lock.lua'))()
-	end,
- })
-
- local Button = MainTab:CreateButton({
-	Name = "🎯 Q Tool",
-	Callback = function()
-		getgenv().keytoclick = "Q"
-tool = Instance.new("Tool")
-tool.RequiresHandle = false
-tool.Name = keytoclick
-tool.Activated:connect(
-    function()
-        local vim = game:service("VirtualInputManager")
-        vim:SendKeyEvent(true, keytoclick, false, game)
+    
+    getgenv().WorldToViewportPoint = function(P)
+        return Camera:WorldToViewportPoint(P)
     end
-)
-tool.Parent = game.Players.LocalPlayer.Backpack
+    
+    getgenv().WorldToScreenPoint = function(P)
+        return Camera.WorldToScreenPoint(Camera, P)
+    end
+    
+    getgenv().GetObscuringObjects = function(T)
+        if T and T:FindFirstChild(getgenv().AimPart) and Client and Client.Character:FindFirstChild("Head") then 
+            local RayPos = workspace:FindPartOnRay(RNew(
+                T[getgenv().AimPart].Position, Client.Character.Head.Position)
+            )
+            if RayPos then return RayPos:IsDescendantOf(T) end
+        end
+    end
+    
+    getgenv().GetNearestTarget = function()
+        -- Credits to whoever made this, i didnt make it, and my own mouse2plr function kinda sucks
+        local players = {}
+        local PLAYER_HOLD  = {}
+        local DISTANCES = {}
+        for i, v in pairs(Players:GetPlayers()) do
+            if v ~= Client then
+                table.insert(players, v)
+            end
+        end
+        for i, v in pairs(players) do
+            if v.Character ~= nil then
+                local AIM = v.Character:FindFirstChild("Head")
+                if getgenv().TeamCheck == true and v.Team ~= Client.Team then
+                    local DISTANCE = (v.Character:FindFirstChild("Head").Position - game.Workspace.CurrentCamera.CFrame.p).magnitude
+                    local RAY = Ray.new(game.Workspace.CurrentCamera.CFrame.p, (Mouse.Hit.p - game.Workspace.CurrentCamera.CFrame.p).unit * DISTANCE)
+                    local HIT,POS = game.Workspace:FindPartOnRay(RAY, game.Workspace)
+                    local DIFF = math.floor((POS - AIM.Position).magnitude)
+                    PLAYER_HOLD[v.Name .. i] = {}
+                    PLAYER_HOLD[v.Name .. i].dist= DISTANCE
+                    PLAYER_HOLD[v.Name .. i].plr = v
+                    PLAYER_HOLD[v.Name .. i].diff = DIFF
+                    table.insert(DISTANCES, DIFF)
+                elseif getgenv().TeamCheck == false and v.Team == Client.Team then 
+                    local DISTANCE = (v.Character:FindFirstChild("Head").Position - game.Workspace.CurrentCamera.CFrame.p).magnitude
+                    local RAY = Ray.new(game.Workspace.CurrentCamera.CFrame.p, (Mouse.Hit.p - game.Workspace.CurrentCamera.CFrame.p).unit * DISTANCE)
+                    local HIT,POS = game.Workspace:FindPartOnRay(RAY, game.Workspace)
+                    local DIFF = math.floor((POS - AIM.Position).magnitude)
+                    PLAYER_HOLD[v.Name .. i] = {}
+                    PLAYER_HOLD[v.Name .. i].dist= DISTANCE
+                    PLAYER_HOLD[v.Name .. i].plr = v
+                    PLAYER_HOLD[v.Name .. i].diff = DIFF
+                    table.insert(DISTANCES, DIFF)
+                end
+            end
+        end
+        
+        if unpack(DISTANCES) == nil then
+            return nil
+        end
+        
+        local L_DISTANCE = math.floor(math.min(unpack(DISTANCES)))
+        if L_DISTANCE > getgenv().AimRadius then
+            return nil
+        end
+        
+        for i, v in pairs(PLAYER_HOLD) do
+            if v.diff == L_DISTANCE then
+                return v.plr
+            end
+        end
+        return nil
+    end
+    
+    Mouse.KeyDown:Connect(function(a)
+        if not (Uis:GetFocusedTextBox()) then 
+            if a == AimlockKey and AimlockTarget == nil then
+                pcall(function()
+                    if MousePressed ~= true then MousePressed = true end 
+                    local Target;Target = GetNearestTarget()
+                    if Target ~= nil then 
+                        AimlockTarget = Target
+                    end
+                end)
+            elseif a == AimlockKey and AimlockTarget ~= nil then
+                if AimlockTarget ~= nil then AimlockTarget = nil end
+                if MousePressed ~= false then 
+                    MousePressed = false 
+                end
+            end
+        end
+    end)
+    
+    RService.RenderStepped:Connect(function()
+        if getgenv().ThirdPerson == true and getgenv().FirstPerson == true then 
+            if (Camera.Focus.p - Camera.CoordinateFrame.p).Magnitude > 1 or (Camera.Focus.p - Camera.CoordinateFrame.p).Magnitude <= 1 then 
+                CanNotify = true 
+            else 
+                CanNotify = false 
+            end
+        elseif getgenv().ThirdPerson == true and getgenv().FirstPerson == false then 
+            if (Camera.Focus.p - Camera.CoordinateFrame.p).Magnitude > 1 then 
+                CanNotify = true 
+            else 
+                CanNotify = false 
+            end
+        elseif getgenv().ThirdPerson == false and getgenv().FirstPerson == true then 
+            if (Camera.Focus.p - Camera.CoordinateFrame.p).Magnitude <= 1 then 
+                CanNotify = true 
+            else 
+                CanNotify = false 
+            end
+        end
+        if Aimlock == true and MousePressed == true then 
+            if AimlockTarget and AimlockTarget.Character and AimlockTarget.Character:FindFirstChild(getgenv().AimPart) then 
+                if getgenv().FirstPerson == true then
+                    if CanNotify == true then
+                        if getgenv().PredictMovement == true then
+                            if getgenv().Smoothness == true then
+                                --// The part we're going to lerp/smoothen \\--
+                                local Main = CF(Camera.CFrame.p, AimlockTarget.Character[getgenv().AimPart].Position + AimlockTarget.Character[getgenv().AimPart].Velocity/PredictionVelocity)
+                                
+                                --// Making it work \\--
+                                Camera.CFrame = Camera.CFrame:Lerp(Main, getgenv().SmoothnessAmount, Enum.EasingStyle.Elastic, Enum.EasingDirection.InOut)
+                            else
+                                Camera.CFrame = CF(Camera.CFrame.p, AimlockTarget.Character[getgenv().AimPart].Position + AimlockTarget.Character[getgenv().AimPart].Velocity/PredictionVelocity)
+                            end
+                        elseif getgenv().PredictMovement == false then 
+                            if getgenv().Smoothness == true then
+                                --// The part we're going to lerp/smoothen \\--
+                                local Main = CF(Camera.CFrame.p, AimlockTarget.Character[getgenv().AimPart].Position)
 
-game.StarterGui:SetCore(
-    "SendNotification",
-    {
-        Title = "worddotexe",
-        Text = "worddotexe"
-    }
-)
+                                --// Making it work \\--
+                                Camera.CFrame = Camera.CFrame:Lerp(Main, getgenv().SmoothnessAmount, Enum.EasingStyle.Elastic, Enum.EasingDirection.InOut)
+                            else
+                                Camera.CFrame = CF(Camera.CFrame.p, AimlockTarget.Character[getgenv().AimPart].Position)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+         if CheckIfJumped == true then
+       if AimlockTarget.Character.HuDDDDDDDDDDWmanoid.FloorMaterial == Enum.Material.Air then
+    
+           getgenv().AimPart = "UpperTorso"
+       else
+         getgenv().AimPart = getgenv().OldAimPart
 
-local player = game.Players.LocalPlayer
+       end
+    end
+end)
+    end,
+ })
 
-local function connectCharacterAdded()
-    player.CharacterAdded:Connect(onCharacterAdded)
+ local Button = MainTab:CreateButton({
+    Name = "🌋 Silent Aim Key.P",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/VrwjH9Pq", true))()
+
+
+getgenv().Aiming.FOV = 14.3
+getgenv().Aiming.FOVSides = 360
+getgenv().Aiming.HitChance = 100
+getgenv().Aiming.ShowFOV = false
+DahoodSettings.Prediction = 0.138
+
+getgenv().Aiming.UseMoreHitparts = true
+getgenv().Aiming.UseNearestCursor = true
+getgenv().Aiming.AutoPrediction = true
+getgenv().Aiming.KnockedCheck = true
+getgenv().Aiming.GrabbedCheck = true
+getgenv().Aiming.Wallcheck = true
+local keybindwuuwuwufw= "p" -- toggle key
+
+
+
+local mouse = game.Players.LocalPlayer:GetMouse()
+mouse.KeyDown:Connect(function(value)
+if value == keybindwuuwuwufwthen
+if DaHoodSettings.SilentAim == true then
+DaHoodSettings.SilentAim = false
+else
+DaHoodSettings.SilentAim = true
 end
-
-connectCharacterAdded()
-
-player.CharacterRemoving:Connect(
-    function()
-        tool.Parent = game.Players.LocalPlayer.Backpack
-    end
-)
-	end,
+end
+end)
+    end,
  })
 
  local Button = MainTab:CreateButton({
-	Name = "🎯 TriggerBot Key.T",
-	Callback = function()
-		local HoldClick = true
+    Name = "🌋 Hitbox Espander Key.Q",
+    Callback = function()
+        getgenv().Camlock_Settings = {
+            Prediction = 0.159,
+            AimPart = "HumanoidRootPart",
+            Key = "q",
+            AutoPrediction = false,
+            Notification = true,
+            Button = true, --Only for people who play on mobile
+            AntiGroundShots = false,
+            UnderGroundResolver = false,
+        
+            -- DO NOT TOUCH THIS OR IT WILL NOT WORK --
+            Credits = "space_0999",
+            DiscordServer = "discord.gg/SKhamGzTdn"
+        } 
+        
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/elxocasXD/Trip-Hub/main/Scripts/Cam%20Lock.lua'))()
+    end,
+ })
+
+ local Button = MainTab:CreateButton({
+    Name = "🌋 No Recoil",
+    Callback = function()
+        function isframework(scriptInstance)
+            if tostring(scriptInstance) == "Framework" then
+                return true
+            end
+            return false
+        end
+        
+        function checkArgs(instance,index)
+            if tostring(instance):lower():find("camera") and tostring(index) == "CFrame" then
+                return true
+            end
+            return false
+        end
+        
+        newindex = hookmetamethod(game, "__newindex", function(self,index,value)
+            local callingScr = getcallingscript()
+        
+            if isframework(callingScr) and checkArgs(self,index) then
+               return;
+            end
+        
+            return newindex(self,index,value)
+        end)
+    end,
+ })
+
+ local Button = Tab:CreateButton({
+    Name = "🌋 Trigger Bot Key.T",
+    Callback = function()
+        local HoldClick = true
 local Hotkey = 't' -- Leave blank for always on
 local HotkeyToggle = true -- True if you want it to toggle on and off with a click
 
@@ -197,258 +316,621 @@ RunService.RenderStepped:Connect(function()
         end
     end
 end)
-	end,
+    end,
  })
 
- local VisualTab = Window:CreateTab("Visual", 89487701971193) -- Title, Image
+ local Section = MainTab:CreateSection("Visual")
 
- local Section = VisualTab:CreateSection("Visual")
+ local Button = MainTab:CreateButton({
+    Name = "🎩 Esp Box",
+    Callback = function()
+        local Workspace, RunService, Players, CoreGui, Lighting = cloneref(game:GetService("Workspace")), cloneref(game:GetService("RunService")), cloneref(game:GetService("Players")), game:GetService("CoreGui"), cloneref(game:GetService("Lighting"))
 
- local Toggle = VisualTab:CreateToggle({
-	Name = "🥷 Esp Box",
-	CurrentValue = false,
-	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-	Callback = function(Value)
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/LinusUser4455/Sw-Hub/refs/heads/main/Esp"))()
-	end,
+local ESP = {
+    Enabled = true,
+    TeamCheck = true,
+    MaxDistance = 200,
+    FontSize = 11,
+    FadeOut = {
+        OnDistance = true,
+        OnDeath = false,
+        OnLeave = false,
+    },
+    Options = { 
+        Teamcheck = false, TeamcheckRGB = Color3.fromRGB(0, 255, 0),
+        Friendcheck = true, FriendcheckRGB = Color3.fromRGB(0, 255, 0),
+        Highlight = false, HighlightRGB = Color3.fromRGB(255, 0, 0),
+    },
+    Drawing = {
+        Chams = {
+            Enabled  = true,
+            Thermal = true,
+            FillRGB = Color3.fromRGB(119, 120, 255),
+            Fill_Transparency = 100,
+            OutlineRGB = Color3.fromRGB(119, 120, 255),
+            Outline_Transparency = 100,
+            VisibleCheck = true,
+        },
+        Names = {
+            Enabled = true,
+            RGB = Color3.fromRGB(255, 255, 255),
+        },
+        Flags = {
+            Enabled = true,
+        },
+        Distances = {
+            Enabled = true, 
+            Position = "Text",
+            RGB = Color3.fromRGB(255, 255, 255),
+        },
+        Weapons = {
+            Enabled = true, WeaponTextRGB = Color3.fromRGB(119, 120, 255),
+            Outlined = false,
+            Gradient = false,
+            GradientRGB1 = Color3.fromRGB(255, 255, 255), GradientRGB2 = Color3.fromRGB(119, 120, 255),
+        },
+        Healthbar = {
+            Enabled = true,  
+            HealthText = true, Lerp = false, HealthTextRGB = Color3.fromRGB(119, 120, 255),
+            Width = 2.5,
+            Gradient = true, GradientRGB1 = Color3.fromRGB(200, 0, 0), GradientRGB2 = Color3.fromRGB(60, 60, 125), GradientRGB3 = Color3.fromRGB(119, 120, 255), 
+        },
+        Boxes = {
+            Animate = true,
+            RotationSpeed = 300,
+            Gradient = false, GradientRGB1 = Color3.fromRGB(119, 120, 255), GradientRGB2 = Color3.fromRGB(0, 0, 0), 
+            GradientFill = true, GradientFillRGB1 = Color3.fromRGB(119, 120, 255), GradientFillRGB2 = Color3.fromRGB(0, 0, 0), 
+            Filled = {
+                Enabled = true,
+                Transparency = 0.75,
+                RGB = Color3.fromRGB(0, 0, 0),
+            },
+            Full = {
+                Enabled = true,
+                RGB = Color3.fromRGB(255, 255, 255),
+            },
+            Corner = {
+                Enabled = true,
+                RGB = Color3.fromRGB(255, 255, 255),
+            },
+        };
+    };
+    Connections = {
+        RunService = RunService;
+    };
+    Fonts = {};
+}
+
+-- Def & Vars
+local Euphoria = ESP.Connections;
+local lplayer = Players.LocalPlayer;
+local camera = game.Workspace.CurrentCamera;
+local Cam = Workspace.CurrentCamera;
+local RotationAngle, Tick = -45, tick();
+
+-- Weapon Images
+local Weapon_Icons = {
+    ["Wooden Bow"] = "http://www.roblox.com/asset/?id=17677465400",
+    ["Crossbow"] = "http://www.roblox.com/asset/?id=17677473017",
+    ["Salvaged SMG"] = "http://www.roblox.com/asset/?id=17677463033",
+    ["Salvaged AK47"] = "http://www.roblox.com/asset/?id=17677455113",
+    ["Salvaged AK74u"] = "http://www.roblox.com/asset/?id=17677442346",
+    ["Salvaged M14"] = "http://www.roblox.com/asset/?id=17677444642",
+    ["Salvaged Python"] = "http://www.roblox.com/asset/?id=17677451737",
+    ["Military PKM"] = "http://www.roblox.com/asset/?id=17677449448",
+    ["Military M4A1"] = "http://www.roblox.com/asset/?id=17677479536",
+    ["Bruno's M4A1"] = "http://www.roblox.com/asset/?id=17677471185",
+    ["Military Barrett"] = "http://www.roblox.com/asset/?id=17677482998",
+    ["Salvaged Skorpion"] = "http://www.roblox.com/asset/?id=17677459658",
+    ["Salvaged Pump Action"] = "http://www.roblox.com/asset/?id=17677457186",
+    ["Military AA12"] = "http://www.roblox.com/asset/?id=17677475227",
+    ["Salvaged Break Action"] = "http://www.roblox.com/asset/?id=17677468751",
+    ["Salvaged Pipe Rifle"] = "http://www.roblox.com/asset/?id=17677468751",
+    ["Salvaged P250"] = "http://www.roblox.com/asset/?id=17677447257",
+    ["Nail Gun"] = "http://www.roblox.com/asset/?id=17677484756"
+};
+
+-- Functions
+local Functions = {}
+do
+    function Functions:Create(Class, Properties)
+        local _Instance = typeof(Class) == 'string' and Instance.new(Class) or Class
+        for Property, Value in pairs(Properties) do
+            _Instance[Property] = Value
+        end
+        return _Instance;
+    end
+    --
+    function Functions:FadeOutOnDist(element, distance)
+        local transparency = math.max(0.1, 1 - (distance / ESP.MaxDistance))
+        if element:IsA("TextLabel") then
+            element.TextTransparency = 1 - transparency
+        elseif element:IsA("ImageLabel") then
+            element.ImageTransparency = 1 - transparency
+        elseif element:IsA("UIStroke") then
+            element.Transparency = 1 - transparency
+        elseif element:IsA("Frame") and (element == Healthbar or element == BehindHealthbar) then
+            element.BackgroundTransparency = 1 - transparency
+        elseif element:IsA("Frame") then
+            element.BackgroundTransparency = 1 - transparency
+        elseif element:IsA("Highlight") then
+            element.FillTransparency = 1 - transparency
+            element.OutlineTransparency = 1 - transparency
+        end;
+    end;  
+end;
+
+do -- Initalize
+    local ScreenGui = Functions:Create("ScreenGui", {
+        Parent = CoreGui,
+        Name = "ESPHolder",
+    });
+
+    local DupeCheck = function(plr)
+        if ScreenGui:FindFirstChild(plr.Name) then
+            ScreenGui[plr.Name]:Destroy()
+        end
+    end
+
+    local ESP = function(plr)
+        coroutine.wrap(DupeCheck)(plr) -- Dupecheck
+        local Name = Functions:Create("TextLabel", {Parent = ScreenGui, Position = UDim2.new(0.5, 0, 0, -11), Size = UDim2.new(0, 100, 0, 20), AnchorPoint = Vector2.new(0.5, 0.5), BackgroundTransparency = 1, TextColor3 = Color3.fromRGB(255, 255, 255), Font = Enum.Font.Code, TextSize = ESP.FontSize, TextStrokeTransparency = 0, TextStrokeColor3 = Color3.fromRGB(0, 0, 0), RichText = true})
+        local Distance = Functions:Create("TextLabel", {Parent = ScreenGui, Position = UDim2.new(0.5, 0, 0, 11), Size = UDim2.new(0, 100, 0, 20), AnchorPoint = Vector2.new(0.5, 0.5), BackgroundTransparency = 1, TextColor3 = Color3.fromRGB(255, 255, 255), Font = Enum.Font.Code, TextSize = ESP.FontSize, TextStrokeTransparency = 0, TextStrokeColor3 = Color3.fromRGB(0, 0, 0), RichText = true})
+        local Weapon = Functions:Create("TextLabel", {Parent = ScreenGui, Position = UDim2.new(0.5, 0, 0, 31), Size = UDim2.new(0, 100, 0, 20), AnchorPoint = Vector2.new(0.5, 0.5), BackgroundTransparency = 1, TextColor3 = Color3.fromRGB(255, 255, 255), Font = Enum.Font.Code, TextSize = ESP.FontSize, TextStrokeTransparency = 0, TextStrokeColor3 = Color3.fromRGB(0, 0, 0), RichText = true})
+        local Box = Functions:Create("Frame", {Parent = ScreenGui, BackgroundColor3 = Color3.fromRGB(0, 0, 0), BackgroundTransparency = 0.75, BorderSizePixel = 0})
+        local Gradient1 = Functions:Create("UIGradient", {Parent = Box, Enabled = ESP.Drawing.Boxes.GradientFill, Color = ColorSequence.new{ColorSequenceKeypoint.new(0, ESP.Drawing.Boxes.GradientFillRGB1), ColorSequenceKeypoint.new(1, ESP.Drawing.Boxes.GradientFillRGB2)}})
+        local Outline = Functions:Create("UIStroke", {Parent = Box, Enabled = ESP.Drawing.Boxes.Gradient, Transparency = 0, Color = Color3.fromRGB(255, 255, 255), LineJoinMode = Enum.LineJoinMode.Miter})
+        local Gradient2 = Functions:Create("UIGradient", {Parent = Outline, Enabled = ESP.Drawing.Boxes.Gradient, Color = ColorSequence.new{ColorSequenceKeypoint.new(0, ESP.Drawing.Boxes.GradientRGB1), ColorSequenceKeypoint.new(1, ESP.Drawing.Boxes.GradientRGB2)}})
+        local Healthbar = Functions:Create("Frame", {Parent = ScreenGui, BackgroundColor3 = Color3.fromRGB(255, 255, 255), BackgroundTransparency = 0})
+        local BehindHealthbar = Functions:Create("Frame", {Parent = ScreenGui, ZIndex = -1, BackgroundColor3 = Color3.fromRGB(0, 0, 0), BackgroundTransparency = 0})
+        local HealthbarGradient = Functions:Create("UIGradient", {Parent = Healthbar, Enabled = ESP.Drawing.Healthbar.Gradient, Rotation = -90, Color = ColorSequence.new{ColorSequenceKeypoint.new(0, ESP.Drawing.Healthbar.GradientRGB1), ColorSequenceKeypoint.new(0.5, ESP.Drawing.Healthbar.GradientRGB2), ColorSequenceKeypoint.new(1, ESP.Drawing.Healthbar.GradientRGB3)}})
+        local HealthText = Functions:Create("TextLabel", {Parent = ScreenGui, Position = UDim2.new(0.5, 0, 0, 31), Size = UDim2.new(0, 100, 0, 20), AnchorPoint = Vector2.new(0.5, 0.5), BackgroundTransparency = 1, TextColor3 = Color3.fromRGB(255, 255, 255), Font = Enum.Font.Code, TextSize = ESP.FontSize, TextStrokeTransparency = 0, TextStrokeColor3 = Color3.fromRGB(0, 0, 0)})
+        local Chams = Functions:Create("Highlight", {Parent = ScreenGui, FillTransparency = 1, OutlineTransparency = 0, OutlineColor = Color3.fromRGB(119, 120, 255), DepthMode = "AlwaysOnTop"})
+        local WeaponIcon = Functions:Create("ImageLabel", {Parent = ScreenGui, BackgroundTransparency = 1, BorderColor3 = Color3.fromRGB(0, 0, 0), BorderSizePixel = 0, Size = UDim2.new(0, 40, 0, 40)})
+        local Gradient3 = Functions:Create("UIGradient", {Parent = WeaponIcon, Rotation = -90, Enabled = ESP.Drawing.Weapons.Gradient, Color = ColorSequence.new{ColorSequenceKeypoint.new(0, ESP.Drawing.Weapons.GradientRGB1), ColorSequenceKeypoint.new(1, ESP.Drawing.Weapons.GradientRGB2)}})
+        local LeftTop = Functions:Create("Frame", {Parent = ScreenGui, BackgroundColor3 = ESP.Drawing.Boxes.Corner.RGB, Position = UDim2.new(0, 0, 0, 0)})
+        local LeftSide = Functions:Create("Frame", {Parent = ScreenGui, BackgroundColor3 = ESP.Drawing.Boxes.Corner.RGB, Position = UDim2.new(0, 0, 0, 0)})
+        local RightTop = Functions:Create("Frame", {Parent = ScreenGui, BackgroundColor3 = ESP.Drawing.Boxes.Corner.RGB, Position = UDim2.new(0, 0, 0, 0)})
+        local RightSide = Functions:Create("Frame", {Parent = ScreenGui, BackgroundColor3 = ESP.Drawing.Boxes.Corner.RGB, Position = UDim2.new(0, 0, 0, 0)})
+        local BottomSide = Functions:Create("Frame", {Parent = ScreenGui, BackgroundColor3 = ESP.Drawing.Boxes.Corner.RGB, Position = UDim2.new(0, 0, 0, 0)})
+        local BottomDown = Functions:Create("Frame", {Parent = ScreenGui, BackgroundColor3 = ESP.Drawing.Boxes.Corner.RGB, Position = UDim2.new(0, 0, 0, 0)})
+        local BottomRightSide = Functions:Create("Frame", {Parent = ScreenGui, BackgroundColor3 = ESP.Drawing.Boxes.Corner.RGB, Position = UDim2.new(0, 0, 0, 0)})
+        local BottomRightDown = Functions:Create("Frame", {Parent = ScreenGui, BackgroundColor3 = ESP.Drawing.Boxes.Corner.RGB, Position = UDim2.new(0, 0, 0, 0)})
+        local Flag1 = Functions:Create("TextLabel", {Parent = ScreenGui, Position = UDim2.new(1, 0, 0, 0), Size = UDim2.new(0, 100, 0, 20), AnchorPoint = Vector2.new(0.5, 0.5), BackgroundTransparency = 1, TextColor3 = Color3.fromRGB(255, 255, 255), Font = Enum.Font.Code, TextSize = ESP.FontSize, TextStrokeTransparency = 0, TextStrokeColor3 = Color3.fromRGB(0, 0, 0)})
+        local Flag2 = Functions:Create("TextLabel", {Parent = ScreenGui, Position = UDim2.new(1, 0, 0, 0), Size = UDim2.new(0, 100, 0, 20), AnchorPoint = Vector2.new(0.5, 0.5), BackgroundTransparency = 1, TextColor3 = Color3.fromRGB(255, 255, 255), Font = Enum.Font.Code, TextSize = ESP.FontSize, TextStrokeTransparency = 0, TextStrokeColor3 = Color3.fromRGB(0, 0, 0)})
+        --local DroppedItems = Functions:Create("TextLabel", {Parent = ScreenGui, AnchorPoint = Vector2.new(0.5, 0.5), BackgroundTransparency = 1, TextColor3 = Color3.fromRGB(255, 255, 255), Font = Enum.Font.Code, TextSize = ESP.FontSize, TextStrokeTransparency = 0, TextStrokeColor3 = Color3.fromRGB(0, 0, 0)})
+        --
+        local Updater = function()
+            local Connection;
+            local function HideESP()
+                Box.Visible = false;
+                Name.Visible = false;
+                Distance.Visible = false;
+                Weapon.Visible = false;
+                Healthbar.Visible = false;
+                BehindHealthbar.Visible = false;
+                HealthText.Visible = false;
+                WeaponIcon.Visible = false;
+                LeftTop.Visible = false;
+                LeftSide.Visible = false;
+                BottomSide.Visible = false;
+                BottomDown.Visible = false;
+                RightTop.Visible = false;
+                RightSide.Visible = false;
+                BottomRightSide.Visible = false;
+                BottomRightDown.Visible = false;
+                Flag1.Visible = false;
+                Chams.Enabled = false;
+                Flag2.Visible = false;
+                if not plr then
+                    ScreenGui:Destroy();
+                    Connection:Disconnect();
+                end
+            end
+            --
+            Connection = Euphoria.RunService.RenderStepped:Connect(function()
+                if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+                    local HRP = plr.Character.HumanoidRootPart
+                    local Humanoid = plr.Character:WaitForChild("Humanoid");
+                    local Pos, OnScreen = Cam:WorldToScreenPoint(HRP.Position)
+                    local Dist = (Cam.CFrame.Position - HRP.Position).Magnitude / 3.5714285714
+                    
+                    if OnScreen and Dist <= ESP.MaxDistance then
+                        local Size = HRP.Size.Y
+                        local scaleFactor = (Size * Cam.ViewportSize.Y) / (Pos.Z * 2)
+                        local w, h = 3 * scaleFactor, 4.5 * scaleFactor
+
+                        -- Fade-out effect --
+                        if ESP.FadeOut.OnDistance then
+                            Functions:FadeOutOnDist(Box, Dist)
+                            Functions:FadeOutOnDist(Outline, Dist)
+                            Functions:FadeOutOnDist(Name, Dist)
+                            Functions:FadeOutOnDist(Distance, Dist)
+                            Functions:FadeOutOnDist(Weapon, Dist)
+                            Functions:FadeOutOnDist(Healthbar, Dist)
+                            Functions:FadeOutOnDist(BehindHealthbar, Dist)
+                            Functions:FadeOutOnDist(HealthText, Dist)
+                            Functions:FadeOutOnDist(WeaponIcon, Dist)
+                            Functions:FadeOutOnDist(LeftTop, Dist)
+                            Functions:FadeOutOnDist(LeftSide, Dist)
+                            Functions:FadeOutOnDist(BottomSide, Dist)
+                            Functions:FadeOutOnDist(BottomDown, Dist)
+                            Functions:FadeOutOnDist(RightTop, Dist)
+                            Functions:FadeOutOnDist(RightSide, Dist)
+                            Functions:FadeOutOnDist(BottomRightSide, Dist)
+                            Functions:FadeOutOnDist(BottomRightDown, Dist)
+                            Functions:FadeOutOnDist(Chams, Dist)
+                            Functions:FadeOutOnDist(Flag1, Dist)
+                            Functions:FadeOutOnDist(Flag2, Dist)
+                        end
+
+                        -- Teamcheck
+                        if ESP.TeamCheck and plr ~= lplayer and ((lplayer.Team ~= plr.Team and plr.Team) or (not lplayer.Team and not plr.Team)) and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") and plr.Character:FindFirstChild("Humanoid") then
+
+                            do -- Chams
+                                Chams.Adornee = plr.Character
+                                Chams.Enabled = ESP.Drawing.Chams.Enabled
+                                Chams.FillColor = ESP.Drawing.Chams.FillRGB
+                                Chams.OutlineColor = ESP.Drawing.Chams.OutlineRGB
+                                do -- Breathe
+                                    if ESP.Drawing.Chams.Thermal then
+                                        local breathe_effect = math.atan(math.sin(tick() * 2)) * 2 / math.pi
+                                        Chams.FillTransparency = ESP.Drawing.Chams.Fill_Transparency * breathe_effect * 0.01
+                                        Chams.OutlineTransparency = ESP.Drawing.Chams.Outline_Transparency * breathe_effect * 0.01
+                                    end
+                                end
+                                if ESP.Drawing.Chams.VisibleCheck then
+                                    Chams.DepthMode = "Occluded"
+                                else
+                                    Chams.DepthMode = "AlwaysOnTop"
+                                end
+                            end;
+
+                            do -- Corner Boxes
+                                LeftTop.Visible = ESP.Drawing.Boxes.Corner.Enabled
+                                LeftTop.Position = UDim2.new(0, Pos.X - w / 2, 0, Pos.Y - h / 2)
+                                LeftTop.Size = UDim2.new(0, w / 5, 0, 1)
+                                
+                                LeftSide.Visible = ESP.Drawing.Boxes.Corner.Enabled
+                                LeftSide.Position = UDim2.new(0, Pos.X - w / 2, 0, Pos.Y - h / 2)
+                                LeftSide.Size = UDim2.new(0, 1, 0, h / 5)
+                                
+                                BottomSide.Visible = ESP.Drawing.Boxes.Corner.Enabled
+                                BottomSide.Position = UDim2.new(0, Pos.X - w / 2, 0, Pos.Y + h / 2)
+                                BottomSide.Size = UDim2.new(0, 1, 0, h / 5)
+                                BottomSide.AnchorPoint = Vector2.new(0, 5)
+                                
+                                BottomDown.Visible = ESP.Drawing.Boxes.Corner.Enabled
+                                BottomDown.Position = UDim2.new(0, Pos.X - w / 2, 0, Pos.Y + h / 2)
+                                BottomDown.Size = UDim2.new(0, w / 5, 0, 1)
+                                BottomDown.AnchorPoint = Vector2.new(0, 1)
+                                
+                                RightTop.Visible = ESP.Drawing.Boxes.Corner.Enabled
+                                RightTop.Position = UDim2.new(0, Pos.X + w / 2, 0, Pos.Y - h / 2)
+                                RightTop.Size = UDim2.new(0, w / 5, 0, 1)
+                                RightTop.AnchorPoint = Vector2.new(1, 0)
+                                
+                                RightSide.Visible = ESP.Drawing.Boxes.Corner.Enabled
+                                RightSide.Position = UDim2.new(0, Pos.X + w / 2 - 1, 0, Pos.Y - h / 2)
+                                RightSide.Size = UDim2.new(0, 1, 0, h / 5)
+                                RightSide.AnchorPoint = Vector2.new(0, 0)
+                                
+                                BottomRightSide.Visible = ESP.Drawing.Boxes.Corner.Enabled
+                                BottomRightSide.Position = UDim2.new(0, Pos.X + w / 2, 0, Pos.Y + h / 2)
+                                BottomRightSide.Size = UDim2.new(0, 1, 0, h / 5)
+                                BottomRightSide.AnchorPoint = Vector2.new(1, 1)
+                                
+                                BottomRightDown.Visible = ESP.Drawing.Boxes.Corner.Enabled
+                                BottomRightDown.Position = UDim2.new(0, Pos.X + w / 2, 0, Pos.Y + h / 2)
+                                BottomRightDown.Size = UDim2.new(0, w / 5, 0, 1)
+                                BottomRightDown.AnchorPoint = Vector2.new(1, 1)                                                            
+                            end
+
+                            do -- Boxes
+                                Box.Position = UDim2.new(0, Pos.X - w / 2, 0, Pos.Y - h / 2)
+                                Box.Size = UDim2.new(0, w, 0, h)
+                                Box.Visible = ESP.Drawing.Boxes.Full.Enabled;
+
+                                -- Gradient
+                                if ESP.Drawing.Boxes.Filled.Enabled then
+                                    Box.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                                    if ESP.Drawing.Boxes.GradientFill then
+                                        Box.BackgroundTransparency = ESP.Drawing.Boxes.Filled.Transparency;
+                                    else
+                                        Box.BackgroundTransparency = 1
+                                    end
+                                    Box.BorderSizePixel = 1
+                                else
+                                    Box.BackgroundTransparency = 1
+                                end
+                                -- Animation
+                                RotationAngle = RotationAngle + (tick() - Tick) * ESP.Drawing.Boxes.RotationSpeed * math.cos(math.pi / 4 * tick() - math.pi / 2)
+                                if ESP.Drawing.Boxes.Animate then
+                                    Gradient1.Rotation = RotationAngle
+                                    Gradient2.Rotation = RotationAngle
+                                else
+                                    Gradient1.Rotation = -45
+                                    Gradient2.Rotation = -45
+                                end
+                                Tick = tick()
+                            end
+
+                            -- Healthbar
+                            do  
+                                local health = Humanoid.Health / Humanoid.MaxHealth;
+                                Healthbar.Visible = ESP.Drawing.Healthbar.Enabled;
+                                Healthbar.Position = UDim2.new(0, Pos.X - w / 2 - 6, 0, Pos.Y - h / 2 + h * (1 - health))  
+                                Healthbar.Size = UDim2.new(0, ESP.Drawing.Healthbar.Width, 0, h * health)  
+                                --
+                                BehindHealthbar.Visible = ESP.Drawing.Healthbar.Enabled;
+                                BehindHealthbar.Position = UDim2.new(0, Pos.X - w / 2 - 6, 0, Pos.Y - h / 2)  
+                                BehindHealthbar.Size = UDim2.new(0, ESP.Drawing.Healthbar.Width, 0, h)
+                                -- Health Text
+                                do
+                                    if ESP.Drawing.Healthbar.HealthText then
+                                        local healthPercentage = math.floor(Humanoid.Health / Humanoid.MaxHealth * 100)
+                                        HealthText.Position = UDim2.new(0, Pos.X - w / 2 - 6, 0, Pos.Y - h / 2 + h * (1 - healthPercentage / 100) + 3)
+                                        HealthText.Text = tostring(healthPercentage)
+                                        HealthText.Visible = Humanoid.Health < Humanoid.MaxHealth
+                                        if ESP.Drawing.Healthbar.Lerp then
+                                            local color = health >= 0.75 and Color3.fromRGB(0, 255, 0) or health >= 0.5 and Color3.fromRGB(255, 255, 0) or health >= 0.25 and Color3.fromRGB(255, 170, 0) or Color3.fromRGB(255, 0, 0)
+                                            HealthText.TextColor3 = color
+                                        else
+                                            HealthText.TextColor3 = ESP.Drawing.Healthbar.HealthTextRGB
+                                        end
+                                    end                        
+                                end
+                            end
+
+                            do -- Names
+                                Name.Visible = ESP.Drawing.Names.Enabled
+                                if ESP.Options.Friendcheck and lplayer:IsFriendsWith(plr.UserId) then
+                                    Name.Text = string.format('(<font color="rgb(%d, %d, %d)">F</font>) %s', ESP.Options.FriendcheckRGB.R * 255, ESP.Options.FriendcheckRGB.G * 255, ESP.Options.FriendcheckRGB.B * 255, plr.Name)
+                                else
+                                    Name.Text = string.format('(<font color="rgb(%d, %d, %d)">E</font>) %s', 255, 0, 0, plr.Name)
+                                end
+                                Name.Position = UDim2.new(0, Pos.X, 0, Pos.Y - h / 2 - 9)
+                            end
+                            
+                            do -- Distance
+                                if ESP.Drawing.Distances.Enabled then
+                                    if ESP.Drawing.Distances.Position == "Bottom" then
+                                        Weapon.Position = UDim2.new(0, Pos.X, 0, Pos.Y + h / 2 + 18)
+                                        WeaponIcon.Position = UDim2.new(0, Pos.X - 21, 0, Pos.Y + h / 2 + 15);
+                                        Distance.Position = UDim2.new(0, Pos.X, 0, Pos.Y + h / 2 + 7)
+                                        Distance.Text = string.format("%d meters", math.floor(Dist))
+                                        Distance.Visible = true
+                                    elseif ESP.Drawing.Distances.Position == "Text" then
+                                        Weapon.Position = UDim2.new(0, Pos.X, 0, Pos.Y + h / 2 + 8)
+                                        WeaponIcon.Position = UDim2.new(0, Pos.X - 21, 0, Pos.Y + h / 2 + 5);
+                                        Distance.Visible = false
+                                        if ESP.Options.Friendcheck and lplayer:IsFriendsWith(plr.UserId) then
+                                            Name.Text = string.format('(<font color="rgb(%d, %d, %d)">F</font>) %s [%d]', ESP.Options.FriendcheckRGB.R * 255, ESP.Options.FriendcheckRGB.G * 255, ESP.Options.FriendcheckRGB.B * 255, plr.Name, math.floor(Dist))
+                                        else
+                                            Name.Text = string.format('(<font color="rgb(%d, %d, %d)">E</font>) %s [%d]', 255, 0, 0, plr.Name, math.floor(Dist))
+                                        end
+                                        Name.Visible = ESP.Drawing.Names.Enabled
+                                    end
+                                end
+                            end
+
+                            do -- Weapons
+                                Weapon.Text = "none"
+                                Weapon.Visible = ESP.Drawing.Weapons.Enabled
+                            end                            
+                        else
+                            HideESP();
+                        end
+                    else
+                        HideESP();
+                    end
+                else
+                    HideESP();
+                end
+            end)
+        end
+        coroutine.wrap(Updater)();
+    end
+    do -- Update ESP
+        for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+            if v.Name ~= lplayer.Name then
+                coroutine.wrap(ESP)(v)
+            end      
+        end
+        --
+        game:GetService("Players").PlayerAdded:Connect(function(v)
+            coroutine.wrap(ESP)(v)
+        end);
+    end;
+end;
+    end,
  })
 
- local Button = VisualTab:CreateButton({
-	Name = "🥷 Sky Box",
-	Callback = function()
-		-- Get the Lighting service
+ local Button = MainTab:CreateButton({
+    Name = "🎩 Sky Block",
+    Callback = function()
+-- Get the Lighting service
 local Lighting = game:GetService("Lighting")
 
 -- Create a new Sky object (you can choose another sky or even create a custom one)
 local newSky = Instance.new("Sky")
 
 -- Modify the sky properties (optional)
-newSky.SkyboxBk = "rbxassetid://1095794193489057229" -- Back of the sky
-newSky.SkyboxDn = "rbxassetid://1095794193489057229" -- Bottom of the sky
-newSky.SkyboxFt = "rbxassetid://1095794193489057229" -- Front of the sky
-newSky.SkyboxLf = "rbxassetid://1095794193489057229" -- Left side of the sky
-newSky.SkyboxRt = "rbxassetid://1095794193489057229" -- Right side of the sky
-newSky.SkyboxUp = "rbxassetid://1095794193489057229" -- Top of the sky
+newSky.SkyboxBk = "rbxassetid://9818367027791407229" -- Back of the sky
+newSky.SkyboxDn = "rbxassetid://9818367027791407229" -- Bottom of the sky
+newSky.SkyboxFt = "rbxassetid://9818367027791407229" -- Front of the sky
+newSky.SkyboxLf = "rbxassetid://9818367027791407229" -- Left side of the sky
+newSky.SkyboxRt = "rbxassetid://9818367027791407229" -- Right side of the sky
+newSky.SkyboxUp = "rbxassetid://9818367027791407229" -- Top of the sky
 
 -- Set the new sky in Lighting
 Lighting.Sky = newSky
-	end,
+})
+
+local Button = MainTab:CreateButton({
+    Name = "Fake Macro Key.X",
+    Callback = function()
+        local Player = game:GetService("Players").LocalPlayer
+            local Mouse = Player:GetMouse()
+            local SpeedGlitch = false
+            Mouse.KeyDown:Connect(function(Key)
+                if Key == "x" then
+                    SpeedGlitch = not SpeedGlitch
+                    if SpeedGlitch == true then
+                        repeat game:GetService("VirtualInputManager"):SendMouseWheelEvent("0", "0", true, game)
+                                    wait(0.000001)
+                                    game:GetService("VirtualInputManager"):SendMouseWheelEvent("0", "0", false, game)
+                                    wait(0.000001)
+                        until SpeedGlitch == false
+                    end
+                end
+            end)
+    end,
  })
 
- local Toggle = VisualTab:CreateToggle({
-	Name = "🥷 Fake Macro",
-	CurrentValue = false,
-	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-	Callback = function(Value)
-		loadstring(game:HttpGetAsync("https://pastebin.com/raw/XiqsUXHj", true))()
-	end,
- })
-
- local VisualTab = Window:CreateTab("Misc", 75027159797813) -- Title, Image
+ local MiscTab = Window:CreateTab("Misc", 4483362458) -- Title, Image
 
  local Section = MiscTab:CreateSection("Misc")
 
  local Button = MiscTab:CreateButton({
-	Name = "🔗 Anti Lock Key.Z",
-	Callback = function()
-		local Toggled = true
-local KeyCode = Enum.KeyCode.Z
-local hip = 2.80
-local val = -35
-
-local function adjustVelocity()
-    local player = game.Players.LocalPlayer
-    local rootPart = player.Character.HumanoidRootPart
-    local oldVelocity = rootPart.Velocity
-    rootPart.Velocity = Vector3.new(oldVelocity.X, val, oldVelocity.Z)
-    player.Character.Humanoid.HipHeight = hip
-end
-
-local function onInputBegan(input)
-    if input.KeyCode == KeyCode and not game:GetService('UserInputService'):GetFocusedTextBox() then
-        Toggled = not Toggled
-        if Toggled then
-            while Toggled do
-                adjustVelocity()
-                task.wait()
-            end
-        else
-            game.Players.LocalPlayer.Character.Humanoid.HipHeight = hip
-        end
-    end
-end
-
-game:GetService('UserInputService').InputBegan:Connect(onInputBegan)
-	end,
+    Name = "💻 Aim Viwers",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Nosssa/NossLock/main/VinGUI"))()
+    end,
  })
 
  local Button = MiscTab:CreateButton({
-	Name = "🔗 Aim Viewr",
-	Callback = function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Nosssa/NossLock/main/VinGUI"))()
-	end,
- })
-
- local Button = MiscTab:CreateButton({
-	Name = "🔗 Anti Aim Viwer",
-	Callback = function()
-		local China = setmetatable({}, {
-			__index = function(Company, Price)
-				return game:GetService(Price)
-			end})
-			
-		 local Players = China.Players
-		 local ReplicatedStorage = China.ReplicatedStorage
-		 
-		 --//Variables
-		 local LocalPlayer = Players.LocalPlayer
-		 local Mouse =  LocalPlayer:GetMouse()
-		 
-		 local MainEvent = ReplicatedStorage:FindFirstChild("MainEvent") or nil
-		 local Tool = nil
-		 
-		 Bypass = function(Entity)
-			Entity.ChildAdded:Connect(function(Child)
-				if Child:IsA("Tool") then
-				  Tool = Child.Activated:Connect(function()
-						if MainEvent then
-						   MainEvent:FireServer("UpdateMousePos", Mouse.Hit.Position)
-						end
-					end)
-				end
-			end)
-		 end
-		 
-		 
-		 
-		 local Alive = function(Player)
-			return Player and Player.Character and Player.Character:FindFirstChild("Humanoid") and Player.Character:FindFirstChild("Head") or false
-		 end
-		 
-		 LocalPlayer.CharacterAdded:Connect(function(Character)
-			Bypass(Character)
-		 end)
-		 
-		 if Alive(LocalPlayer) then
-			LocalPlayer.Character.Humanoid:UnequipTools()
-			Bypass(LocalPlayer.Character)
-		 end
-		 
-		 local Hook
-		 Hook = hookmetamethod(game, "__namecall", function(self, ...)
-			local Args = {...}
-			local Method = getnamecallmethod()
-		 
-			if not checkcaller() and Method == "FireServer" and self.Name == "MainEvent" and Args[1] == "UpdateMousePos" then
-		 
-			   Args[2] = "Scarcin made this" and Mouse.Hit.Position
-				
-				return self.FireServer(self, unpack(Args))
-			end
-			
-			return Hook(self, ...)
-		 end)
-	end,
- })
-
- local Button = MiscTab:CreateButton({
-	Name = "🔗 Bypass",
-	Callback = function()
-		Bypass = true
-
-    local GameMT = getrawmetatable(game)
-    -- Backup variables
-    local OldIndexFunc = GameMT.__index;
-    local OldNamecallFunc = GameMT.__namecall
-    setreadonly(GameMT, false)
-    if (Bypass == true) then
-        -- This will be so laggy
-        GameMT.__namecall = newcclosure(function(self, ...) 
-            local NamecallArgs = {...}
-    
-            local DETECTION_STRINGS = 
-            {
-                'CHECKER_1';
-                'CHECKER';
-                'OneMoreTime';
-                'checkingSPEED';
-                'PERMAIDBAN';
-                'BANREMOTE';
-                'FORCEFIELD';
-                'TeleportDetect';
-            };
-    
-            if (table.find(DETECTION_STRINGS, NamecallArgs[1]) and getnamecallmethod() == 'FireServer') then 
-                return;
-            end;
-            local suc, err = pcall(getfenv, 2)
-            if not (err) then 
-                if getfenv(2).crash then 
-                    hookfunction(getfenv(2).crash, function() 
-                        
+    Name = "💻 Anti Aim Viwers",
+    Callback = function()
+        local China = setmetatable({}, {
+            __index = function(Company, Price)
+                return game:GetService(Price)
+            end})
+            
+         local Players = China.Players
+         local ReplicatedStorage = China.ReplicatedStorage
+         
+         --//Variables
+         local LocalPlayer = Players.LocalPlayer
+         local Mouse =  LocalPlayer:GetMouse()
+         
+         local MainEvent = ReplicatedStorage:FindFirstChild("MainEvent") or nil
+         local Tool = nil
+         
+         Bypass = function(Entity)
+            Entity.ChildAdded:Connect(function(Child)
+                if Child:IsA("Tool") then
+                  Tool = Child.Activated:Connect(function()
+                        if MainEvent then
+                           MainEvent:FireServer("UpdateMousePos", Mouse.Hit.Position)
+                        end
                     end)
                 end
+            end)
+         end
+         
+         
+         
+         local Alive = function(Player)
+            return Player and Player.Character and Player.Character:FindFirstChild("Humanoid") and Player.Character:FindFirstChild("Head") or false
+         end
+         
+         LocalPlayer.CharacterAdded:Connect(function(Character)
+            Bypass(Character)
+         end)
+         
+         if Alive(LocalPlayer) then
+            LocalPlayer.Character.Humanoid:UnequipTools()
+            Bypass(LocalPlayer.Character)
+         end
+         
+         local Hook
+         Hook = hookmetamethod(game, "__namecall", function(self, ...)
+            local Args = {...}
+            local Method = getnamecallmethod()
+         
+            if not checkcaller() and Method == "FireServer" and self.Name == "MainEvent" and Args[1] == "UpdateMousePos" then
+         
+               Args[2] = "Scarcin made this" and Mouse.Hit.Position
+                
+                return self.FireServer(self, unpack(Args))
             end
-            return OldNamecallFunc(self, ...)
-        end)
+            
+            return Hook(self, ...)
+         end)
+    end,
+ })
+
+ local Button = MiscTab:CreateButton({
+    Name = "💻 Tool.Q",
+    Callback = function()
+        getgenv().keytoclick = "Q"
+tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = keytoclick
+tool.Activated:connect(
+    function()
+        local vim = game:service("VirtualInputManager")
+        vim:SendKeyEvent(true, keytoclick, false, game)
     end
-	end,
+)
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+game.StarterGui:SetCore(
+    "SendNotification",
+    {
+        Title = "worddotexe",
+        Text = "worddotexe"
+    }
+)
+
+local player = game.Players.LocalPlayer
+
+local function connectCharacterAdded()
+    player.CharacterAdded:Connect(onCharacterAdded)
+end
+
+connectCharacterAdded()
+
+player.CharacterRemoving:Connect(
+    function()
+        tool.Parent = game.Players.LocalPlayer.Backpack
+    end
+)
+    end,
  })
 
  local Button = MiscTab:CreateButton({
-	Name = "🔗 Ping Spoofer",
-	Callback = function()
-		getgenv().PingSpoofer = {
-			SpoofPing = true,
-			StartOfPingSpoofer = 31,
-			EndOfPingSpoofer = 69
-		}
-		
-		local Memory
-		
-		for __, v in pairs(game.CoreGui.RobloxGui.PerformanceStats:GetChildren()) do
-			if v.Name == 'PS_Button' and v.StatsMiniTextPanelClass.TitleLabel.Text == 'Ping' then 
-				Memory = v.StatsMiniTextPanelClass.ValueLabel
-			end
-		end
-		
-		Memory:GetPropertyChangedSignal('Text'):Connect(function()
-			if getgenv().PingSpoofer.SpoofPing then
-				local Random = math.random(getgenv().PingSpoofer.StartOfPingSpoofer, getgenv().PingSpoofer.EndOfPingSpoofer)
-				Random = Random * 1.23
-				Memory.Text = Random .. ' ms'
-			end
-		end)
-	end,
+    Name = "💻 Ping Spoofer",
+    Callback = function()
+        getgenv().PingSpoofer = {
+            SpoofPing = true,
+            StartOfPingSpoofer = 31,
+            EndOfPingSpoofer = 69
+        }
+        
+        local Memory
+        
+        for __, v in pairs(game.CoreGui.RobloxGui.PerformanceStats:GetChildren()) do
+            if v.Name == 'PS_Button' and v.StatsMiniTextPanelClass.TitleLabel.Text == 'Ping' then 
+                Memory = v.StatsMiniTextPanelClass.ValueLabel
+            end
+        end
+        
+        Memory:GetPropertyChangedSignal('Text'):Connect(function()
+            if getgenv().PingSpoofer.SpoofPing then
+                local Random = math.random(getgenv().PingSpoofer.StartOfPingSpoofer, getgenv().PingSpoofer.EndOfPingSpoofer)
+                Random = Random * 1.23
+                Memory.Text = Random .. ' ms'
+            end
+        end)
+    end,
  })
 
- local Button = MiscTab:CreateButton({
-	Name = " Memory Spoofer",
-	Callback = function()
-		local Settings = {
-			range1 = 500,
-			range2 = 800,
-			
-		}
-		
-		for __, v in pairs(game.CoreGui.RobloxGui.PerformanceStats:GetChildren()) do
-			if v.Name == "PS_Button" and v.StatsMiniTextPanelClass.TitleLabel.Text == "Mem" then
-				Memory = v.StatsMiniTextPanelClass.ValueLabel
-			end
-		end
-		
-		Memory:GetPropertyChangedSignal("Text"):Connect(function()
-			local Random = math.random(Settings.range1,Settings.range2)
-			Random = Random * 1.23 
-			Memory.Text = "".. Random .." MB"
-		end)
-	end,
- })
-
- local Button = MiscTab:CreateButton({
-	Name = "🔗 Fps Boost",
-	Callback = function()
-		-- enjoy
+ local Button = Tab:CreateButton({
+    Name = "💻 Fps Booster",
+    Callback = function()
+        -- enjoy
 local function sendNotification(title, text)
     game.StarterGui:SetCore("SendNotification", {
         Title = title,
@@ -553,5 +1035,49 @@ end)
 
 pressF9()
 spawn(checkDevConsole)
-	end,
+    end,
+ })
+
+ local Button = MiscTab:CreateButton({
+    Name = "💻 Bypass",
+    Callback = function()
+        Bypass = true
+
+    local GameMT = getrawmetatable(game)
+    -- Backup variables
+    local OldIndexFunc = GameMT.__index;
+    local OldNamecallFunc = GameMT.__namecall
+    setreadonly(GameMT, false)
+    if (Bypass == true) then
+        -- This will be so laggy
+        GameMT.__namecall = newcclosure(function(self, ...) 
+            local NamecallArgs = {...}
+    
+            local DETECTION_STRINGS = 
+            {
+                'CHECKER_1';
+                'CHECKER';
+                'OneMoreTime';
+                'checkingSPEED';
+                'PERMAIDBAN';
+                'BANREMOTE';
+                'FORCEFIELD';
+                'TeleportDetect';
+            };
+    
+            if (table.find(DETECTION_STRINGS, NamecallArgs[1]) and getnamecallmethod() == 'FireServer') then 
+                return;
+            end;
+            local suc, err = pcall(getfenv, 2)
+            if not (err) then 
+                if getfenv(2).crash then 
+                    hookfunction(getfenv(2).crash, function() 
+                        
+                    end)
+                end
+            end
+            return OldNamecallFunc(self, ...)
+        end)
+    end
+    end,
  })
